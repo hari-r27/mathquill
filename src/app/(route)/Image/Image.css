@@ -1,0 +1,246 @@
+section{
+    min-width: 70%;
+    max-width: 5%;
+    height: 25rem;
+    padding: 3%;
+    margin: auto;
+    /* margin-top: 10%; */
+    border-radius: 7px;
+    /* border: 1px solid red;     */
+    background-color: #43BA80;    
+    background-image: url(https://www.begalileo.com/assets/blog_pages/Ellipse%2069.png);
+    /* background: transparent; */
+    /* z-index: -1; */
+    background-repeat: no-repeat;
+    background-size: 15%;
+    
+}
+.parent_div{
+    /* width: 100%; */
+    /* border: 1px solid green; */
+    /* height: inherit; */
+    /* overflow: scroll; */
+}
+.head_field{
+    width: 100%;
+    /* border: 1px solid black; */
+    margin: auto;
+    /* margin-top: 1%; */
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+    color: #353639; 
+}
+h1{
+    /* font-size: small; */
+    margin-top: -1%;
+}
+.slider_parent{
+    width: 100%;
+    /* border: 1px solid blue; */
+    margin: auto;
+    margin-top: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    gap: 2rem;
+    justify-content: space-between;
+    overflow-X: scroll;
+    /* white-space: nowrap; */
+}
+.img_container{
+    flex: none;
+    width: 30%;
+    height: 15rem;
+    border-radius: 10px;
+    /* border: 1px solid blueviolet; */
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+
+    /* justify-content: space-between;   */
+}
+.img_container img{
+    width: 100%;
+    border-radius: 10px;
+}
+.slider_parent .para_field {
+ width: 80%;
+ height: 5rem;
+ /* border: 1px solid red; */
+ margin-top: 3%;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+.slider_parent .para_field p{
+    width: 100%;
+    color: #233584;
+    font-weight: bold;
+}
+.slider_parent{
+    overflow: auto;
+    -webkit-overflow-scrolling: touch; 
+}
+.slider_parent  {  overflow: auto; /* Enable scrolling */
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+  
+    /* For Chrome, Safari, and Edge */
+  }
+.slider_parent::-webkit-scrollbar {
+    display: none; /* Hide scrollbar */
+  }
+  @media screen and (min-width:200px){
+    section{
+        background-size: 15%;
+    }
+    .img_container{
+        width: 100%;
+        height: auto;
+    }
+    .slider_parent{
+        width: 100%;
+        margin: auto;
+    }
+    .img_container img{
+        width: 100%;
+        border-radius: 10px;
+    }
+  }
+  @media screen and (min-width:380px){
+    .img_container{
+        width: 100%;
+        height: inherit;
+    }
+    .slider_parent{
+        width: 100%;
+        margin: auto;
+    }
+    .img_container img{
+        width: 100%;
+        border-radius: 10px;
+    }
+  }
+  @media screen and (min-width:300px){
+    .slider_parent{
+        width: 100%;
+        margin: auto;
+    }
+    .img_container{
+        width: 100%;
+        height: inherit;
+    }
+    .img_container img{
+        width: 100%;
+        border-radius: 10px;
+    }
+  }
+  @media screen and (min-width:760px){
+    .slider_parent{
+        width: 100%;
+        margin: auto;
+    }
+    .img_container{
+        width: 85%;
+        height: inherit;
+    }
+    .img_container img{
+        width: 100%;
+        border-radius: 10px;
+    }
+  }
+  @media screen and (min-width:803px){
+    .slider_parent{
+        width: 100%;
+        margin: auto;
+    }
+    .img_container{
+        width: 60%;
+        height:inherit;
+    }
+    .img_container img{
+        width: 100%;
+        border-radius: 10px;
+    }
+  }
+  @media screen and (min-width:912px){
+    .slider_parent{
+        width: 100%;
+        margin: auto;
+    }
+    .img_container{
+        width: 60%;
+        height: inherit;
+    }
+    .img_container img{
+        width: 100%;
+        border-radius: 10px;
+    }
+  }
+  @media screen and (min-width:2560px){
+    .slider_parent{
+        width: 100%;
+        margin: auto;
+    }
+    section{
+        height: inherit;
+    }
+    .img_container{
+        width: 95%;
+        height: inherit;
+    }
+    .img_container img{
+        width: 100%;
+        border-radius: 10px;
+    }
+  }
+  @media screen and (max-width:2567px){
+    .slider_parent{
+        width: 100%;
+        margin: auto;
+    }
+    section{
+        height: inherit;
+    }
+    .img_container{
+        width: 95%;
+        height: inherit;
+    }
+    .img_container img{
+        width: 100%;
+        border-radius: 10px;
+    }
+  }
+  @media screen and (min-width:1024px){
+    .slider_parent{
+        width: 100%;
+        margin: auto;
+    }
+    .img_container{
+        width: 50%;
+        height: inherit;
+    }
+    .img_container img{
+        width: 100%;
+        border-radius: 10px;
+    }
+  }
+  @media screen and (min-width:1280px){
+    .slider_parent{
+        width: 100%;
+        margin: auto;
+    }
+    .img_container{
+        width: 30%;
+        height: inherit;
+    }
+    .img_container img{
+        width: 100%;
+        border-radius: 10px;
+    }
+  }

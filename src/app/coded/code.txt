@@ -1,0 +1,1068 @@
+// "use client";
+// import { useState, useRef } from "react";
+// import { addStyles, EditableMathField, StaticMathField } from "react-mathquill";
+
+// // Add MathQuill Styles globally
+// addStyles();
+
+// const formulas = [
+//   { id: 1, code: "\\frac{?}{?}", description: "Fraction" },
+//   { id: 2, code: "\\sqrt{?}", description: "Square Root" },
+//   { id: 3, code: "?^2 + ?^2 = ?^2", description: "Pythagorean Theorem" },
+//   { id: 4, code: "\\int_{0}^{1} ?^2 dx", description: "Integral" },
+// ];
+
+// export default function Page() {
+//   const [inputValue, setInputValue] = useState(""); // Store the LaTeX code
+//   const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility for formula list
+//   const [storedLatex, setStoredLatex] = useState([]); // Store the LaTeX code wrapped in multiple <p> tags
+//   const mathFieldRef = useRef(null); // Reference to MathQuill editor
+
+//   // Append the new formula to the current content
+//   const handleInsertFormula = (formulaCode) => {
+//     if (mathFieldRef.current) {
+//       const currentLatex = mathFieldRef.current.latex(); // Get the current LaTeX content
+//       const updatedLatex = `${currentLatex} ${formulaCode}`; // Append the new formula
+//       mathFieldRef.current.latex(updatedLatex); // Update the editor with the new LaTeX content
+//       setInputValue(updatedLatex); // Update the state with the new LaTeX content
+//     }
+//     setIsModalOpen(false); // Close the modal
+//   };
+
+//   // Get the LaTeX code from the MathQuill editor
+//   const getMathQuillValue = () => {
+//     if (mathFieldRef.current) {
+//       const latexValue = mathFieldRef.current.latex(); // Get LaTeX code
+//       return latexValue;
+//     }
+//     return "";
+//   };
+
+//   // Send the LaTeX code to the backend and wrap each part in <p> tags
+//   const sendLatexToBackend = () => {
+//     const latexCode = getMathQuillValue();
+
+//     // Split the LaTeX code by multiple spaces (2 or more spaces)
+//     const latexParts = latexCode.split(/\s{2,}/);
+
+//     // Wrap each part in a <p> tag
+//     const wrappedLatex = latexParts.map((part) => `<span>${part}</span>`);
+
+//     console.log("Wrapped LaTeX Code:", wrappedLatex.join("\n")); // Log wrapped LaTeX code
+//     setStoredLatex(wrappedLatex); // Store the wrapped LaTeX code in the state
+//   };
+
+//   return (
+//     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
+//       <h1 className="text-3xl font-bold text-gray-800 mb-6">MathEditor</h1>
+
+//       {/* MathQuill Editor (EditableMathField) */}
+//       <div className="w-full max-w-lg mb-6">
+//         <EditableMathField
+//           latex={inputValue} // LaTeX code entered by the user
+//           onChange={(mathField) => setInputValue(mathField.latex())} // Update state when modified
+//           mathquillDidMount={(mathField) => {
+//             mathFieldRef.current = mathField; // Attach MathQuill instance
+//           }}
+//           style={{ fontSize: "16px" }}
+//           className="outline-none w-full text-gray-800 p-3 border border-gray-300 rounded-md"
+//         />
+//       </div>
+
+//       {/* Button to open Formula Modal */}
+//       <div>
+//         <button
+//           onClick={() => setIsModalOpen(true)}
+//           className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+//         >
+//           Select Formula
+//         </button>
+//       </div>
+
+//       {/* Modal for Formula List */}
+//       {isModalOpen && (
+//         <div className="fixed inset-0 flex justify-center items-center bg-gray-600 bg-opacity-50 z-50">
+//           <div className="bg-white p-6 rounded-lg shadow-lg w-80">
+//             <h2 className="text-lg font-medium text-gray-700 mb-4">Select Formula</h2>
+//             <ul>
+//               {formulas.map((formula) => (
+//                 <li key={formula.id} className="mb-2">
+//                   <button
+//                     onClick={() => handleInsertFormula(formula.code)}
+//                     className="text-blue-500 hover:underline"
+//                   >
+//                     {formula.description}
+//                   </button>
+//                 </li>
+//               ))}
+//             </ul>
+//             <button
+//               onClick={() => setIsModalOpen(false)}
+//               className="mt-4 bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
+//             >
+//               Close
+//             </button>
+//           </div>
+//         </div>
+//       )}
+
+//       {/* Button to send LaTeX code to backend */}
+//       <div className="mt-4">
+//         <button
+//           onClick={sendLatexToBackend}
+//           className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
+//         >
+//           Save LaTeX Code
+//         </button>
+//       </div>
+
+//       {/* Display the stored LaTeX code as rendered math */}
+//       <div className="mt-6 w-full max-w-lg">
+//         <h2 className="text-lg font-medium text-gray-700">Stored Formula:</h2>
+//         <div className="border p-4 rounded-md bg-white mt-2">
+//           {storedLatex.map((latex, index) => (
+//             <StaticMathField key={index}>{latex.replace(/<span>|<\/span>/g, "")}</StaticMathField>
+//           ))} {/* Render math */}
+//         </div>
+//       </div>
+
+//       {/* Display wrapped LaTeX code in <p> tags */}
+//       <div className="mt-6 w-full max-w-lg">
+//         <h2 className="text-lg font-medium text-gray-700">Stored LaTeX in Paragraphs:</h2>
+//         <div className="border p-4 rounded-md bg-gray-50 mt-2">
+//           {storedLatex.map((latex, index) => (
+//             <div key={index} dangerouslySetInnerHTML={{ __html: latex }} />
+//           ))}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// "use client";
+// import { useState, useRef } from "react";
+// import { addStyles, EditableMathField, StaticMathField } from "react-mathquill";
+
+// // Add MathQuill Styles globally
+// addStyles();
+
+// const formulas = [
+//   { id: 1, code: "\\frac{?}{?}", description: "Fraction" },
+//   { id: 2, code: "\\sqrt{?}", description: "Square Root" },
+//   { id: 3, code: "?^2 + ?^2 = ?^2", description: "Pythagorean Theorem" },
+//   { id: 4, code: "\\int_{0}^{1} ?^2 dx", description: "Integral" },
+// ];
+
+// export default function Page() {
+//   const [inputValue, setInputValue] = useState(""); // Store the LaTeX code
+//   const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility for formula list
+//   const [storedLatex, setStoredLatex] = useState(""); // Store the LaTeX code wrapped in <p> tags
+//   const mathFieldRef = useRef(null); // Reference to MathQuill editor
+
+//   // Append the new formula to the current content
+//   const handleInsertFormula = (formulaCode) => {
+//     if (mathFieldRef.current) {
+//       const currentLatex = mathFieldRef.current.latex(); // Get the current LaTeX content
+//       const updatedLatex = `${currentLatex} ${formulaCode}`; // Append the new formula
+//       mathFieldRef.current.latex(updatedLatex); // Update the editor with the new LaTeX content
+//       setInputValue(updatedLatex); // Update the state with the new LaTeX content
+//     }
+//     setIsModalOpen(false); // Close the modal
+//   };
+
+//   // Get the LaTeX code from the MathQuill editor
+//   const getMathQuillValue = () => {
+//     if (mathFieldRef.current) {
+//       const latexValue = mathFieldRef.current.latex(); // Get LaTeX code
+//       return latexValue;
+//     }
+//     return "";
+//   };
+
+//   // Send the LaTeX code to the backend and wrap it in <p> tags
+//   const sendLatexToBackend = () => {
+//     const latexCode = getMathQuillValue();
+//     const wrappedLatex = `<p>${latexCode}</p>`; // Wrap the LaTeX code in <p> tags
+//     console.log("Wrapped LaTeX Code:", wrappedLatex);
+//     setStoredLatex(wrappedLatex); // Store the wrapped LaTeX code in the state
+//   };
+
+//   return (
+//     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
+//       <h1 className="text-3xl font-bold text-gray-800 mb-6">MathEditor</h1>
+
+//       {/* MathQuill Editor (EditableMathField) */}
+//       <div className="w-full max-w-lg mb-6">
+//         <EditableMathField
+//           latex={inputValue} // LaTeX code entered by the user
+//           onChange={(mathField) => setInputValue(mathField.latex())} // Update state when modified
+//           mathquillDidMount={(mathField) => {
+//             mathFieldRef.current = mathField; // Attach MathQuill instance
+//           }}
+//           style={{ fontSize: "16px" }}
+//           className="outline-none w-full text-gray-800 p-3 border border-gray-300 rounded-md"
+//         />
+//       </div>
+
+//       {/* Button to open Formula Modal */}
+//       <div>
+//         <button
+//           onClick={() => setIsModalOpen(true)}
+//           className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+//         >
+//           Select Formula
+//         </button>
+//       </div>
+
+//       {/* Modal for Formula List */}
+//       {isModalOpen && (
+//         <div className="fixed inset-0 flex justify-center items-center bg-gray-600 bg-opacity-50 z-50">
+//           <div className="bg-white p-6 rounded-lg shadow-lg w-80">
+//             <h2 className="text-lg font-medium text-gray-700 mb-4">Select Formula</h2>
+//             <ul>
+//               {formulas.map((formula) => (
+//                 <li key={formula.id} className="mb-2">
+//                   <button
+//                     onClick={() => handleInsertFormula(formula.code)}
+//                     className="text-blue-500 hover:underline"
+//                   >
+//                     {formula.description}
+//                   </button>
+//                 </li>
+//               ))}
+//             </ul>
+//             <button
+//               onClick={() => setIsModalOpen(false)}
+//               className="mt-4 bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
+//             >
+//               Close
+//             </button>
+//           </div>
+//         </div>
+//       )}
+
+//       {/* Button to send LaTeX code to backend */}
+//       <div className="mt-4">
+//         <button
+//           onClick={sendLatexToBackend}
+//           className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
+//         >
+//           Save LaTeX Code
+//         </button>
+//       </div>
+
+//       {/* Display the stored LaTeX code as rendered math */}
+//       <div className="mt-6 w-full max-w-lg">
+//         <h2 className="text-lg font-medium text-gray-700">Stored Formula:</h2>
+//         <div className="border p-4 rounded-md bg-white mt-2">
+//           <StaticMathField>{storedLatex.replace(/<p>|<\/p>/g, "")}</StaticMathField> {/* Render math */}
+//         </div>
+//       </div>
+
+//       {/* Display wrapped LaTeX code in <p> tags */}
+//       <div className="mt-6 w-full max-w-lg">
+//         <h2 className="text-lg font-medium text-gray-700">Stored LaTeX in Paragraph:</h2>
+//         <div className="border p-4 rounded-md bg-gray-50 mt-2">
+//           <p>{storedLatex}</p>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+// "use client"
+// import { useState, useRef } from "react";
+// import { addStyles, EditableMathField, StaticMathField } from "react-mathquill";
+
+// // Add MathQuill Styles globally
+// addStyles();
+
+// const formulas = [
+//   { id: 1, code: "\\frac{?}{?}", description: "Fraction" },
+//   { id: 2, code: "\\sqrt{?}", description: "Square Root" },
+//   { id: 3, code: "?^2 + ?^2 = ?^2", description: "Pythagorean Theorem" },
+//   { id: 4, code: "\\int_{0}^{1} ?^2 dx", description: "Integral" },
+// ];
+
+// export default function Page() {
+//   const [inputValue, setInputValue] = useState(""); // Store the LaTeX code
+//   const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility for formula list
+// //   const [storedLatex, setStoredLatex] = useState(""); // Store the LaTeX code returned by the backend
+//   const mathFieldRef = useRef(null); // Reference to MathQuill editor
+// //    console.log(mathFieldRef ,"im ref");
+//   // Append the new formula to the current content
+//   const handleInsertFormula = (formulaCode) => {
+//     if (mathFieldRef.current) {
+//       const currentLatex = mathFieldRef.current.latex(); // Get the current LaTeX content
+//     //   console.log(currentLatex,"im current latex")
+//       const updatedLatex = `${currentLatex} ${formulaCode}`; // Append the new formula
+//       mathFieldRef.current.latex(updatedLatex); // Update the editor with the new LaTeX content
+//       setInputValue(updatedLatex); // Update the state with the new LaTeX content
+//     }
+//     setIsModalOpen(false); // Close the modal
+//   };
+
+//   // Get the LaTeX code from the MathQuill editor
+//   const getMathQuillValue = () => {
+//     if (mathFieldRef.current) {
+//       const latexValue = mathFieldRef.current.latex(); // Get LaTeX code
+//       return latexValue;
+//     }
+//     return "";
+//   };
+
+//   // Send the LaTeX code to the backend and store it
+//   const sendLatexToBackend = async () => {
+//     const latexCode = getMathQuillValue();
+//     console.log("Sendin LaTeX Code : ", latexCode);
+
+//     // try {
+//     //   // Replace with your backend URL
+//     //   const response = await fetch("http://localhost:5000/save-latex", {
+//     //     method: "POST",
+//     //     headers: {
+//     //       "Content-Type": "application/json",
+//     //     },
+//     //     body: JSON.stringify({ latex: latexCode }),
+//     //   });
+
+// //       if (response.ok) {
+// //         const result = await response.json();
+// //         console.log("Response from Backend:", result);
+// //         setStoredLatex(result.storedLatex || latexCode); // Store the value returned by the backend
+// //         alert("LaTeX Code successfully stored!");
+// //       } else {
+// //         console.error("Failed to store LaTeX code.");
+// //         alert("Error: Failed to store LaTeX code.");
+// //       }
+// //     } catch (error) {
+// //       console.error("Error while sending LaTeX code:", error);
+// //       alert("Error: Unable to connect to the backend.");
+// //     }
+//   };
+
+//   return (
+//     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
+//       <h1 className="text-3xl font-bold text-gray-800 mb-6">MathEditor</h1>
+
+//       {/* MathQuill Editor (EditableMathField) */}
+//       <div className="w-full max-w-lg mb-6">
+//         <EditableMathField
+//           latex={inputValue} // LaTeX code entered by the user
+//           onChange={(mathField) => setInputValue(mathField.latex())} // Update state when modified
+//           mathquillDidMount={(mathField) => {
+//             mathFieldRef.current = mathField; // Attach MathQuill instance
+//           }}
+//           style={{ fontSize: "16px" }}
+//           className="outline-none w-full text-gray-800 p-3 border border-gray-300 rounded-md"
+//         />
+//       </div>
+
+//       {/* Button to open Formula Modal */}
+//       <div>
+//         <button
+//           onClick={() => setIsModalOpen(true)}
+//           className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+//         >
+//           Select Formula
+//         </button>
+//       </div>
+
+//       {/* Modal for Formula List */}
+//       {isModalOpen && (
+//         <div className="fixed inset-0 flex justify-center items-center bg-gray-600 bg-opacity-50 z-50">
+//           <div className="bg-white p-6 rounded-lg shadow-lg w-80">
+//             <h2 className="text-lg font-medium text-gray-700 mb-4">Select Formula</h2>
+//             <ul>
+//               {formulas.map((formula) => (
+//                 <li key={formula.id} className="mb-2">
+//                   <button
+//                     onClick={() => handleInsertFormula(formula.code)}
+//                     className="text-blue-500 hover:underline"
+//                   >
+//                     {formula.description}
+//                   </button>
+//                 </li>
+//               ))}
+//             </ul>
+//             <button
+//               onClick={() => setIsModalOpen(false)}
+//               className="mt-4 bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
+//             >
+//               Close
+//             </button>
+//           </div>
+//         </div>
+//       )}
+
+//       {/* Button to send LaTeX code to backend */}
+//       <div className="mt-4">
+//         <button
+//           onClick={sendLatexToBackend}
+//           className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
+//         >
+//           Save LaTeX Code
+//         </button>
+//       </div>
+
+//       {/* Display the stored LaTeX code as rendered math */}
+//       <div className="mt-6 w-full max-w-lg">
+//         <h2 className="text-lg font-medium text-gray-700">Stored Formula:</h2>
+//         <div className="border p-4 rounded-md bg-white mt-2">
+//           {/* MathQuill Display for the stored LaTeX code */}
+//           <StaticMathField>{inputValue}</StaticMathField>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// "use client"
+// import { useState, useRef } from "react";
+// import { addStyles, EditableMathField } from "react-mathquill";
+
+// // Add MathQuill Styles globally
+// addStyles();
+
+// const formulas = [
+//   { id: 1, code: "\\frac{x}{y}", description: "Fraction" },
+//   { id: 2, code: "\\sqrt{x}", description: "Square Root" },
+//   { id: 3, code: "x^2 + y^2 = z^2", description: "Pythagorean Theorem" },
+//   { id: 4, code: "\\int_{0}^{1} x^2 dx", description: "Integral" },
+// ];
+
+// export default function Page() {
+//   const [inputValue, setInputValue] = useState(""); // Store the LaTeX code
+//   const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility for formula list
+//   const mathFieldRef = useRef(null); // Reference to MathQuill editor
+
+//   // Append the new formula to the current content
+//   const handleInsertFormula = (formulaCode) => {
+//     if (mathFieldRef.current) {
+//       const currentLatex = mathFieldRef.current.latex(); // Get the current LaTeX content
+//       const updatedLatex = `${currentLatex} ${formulaCode}`; // Append the new formula
+//       mathFieldRef.current.latex(updatedLatex); // Update the editor with the new LaTeX content
+//       setInputValue(updatedLatex); // Update the state with the new LaTeX content
+//     }
+//     setIsModalOpen(false); // Close the modal
+//   };
+
+//   // Get the LaTeX code from the MathQuill editor
+//   const getMathQuillValue = () => {
+//     if (mathFieldRef.current) {
+//       const latexValue = mathFieldRef.current.latex(); // Get LaTeX code
+//       console.log("LaTeX Value: ", latexValue);
+//       return latexValue;
+//     }
+//     return "";
+//   };
+
+//   const storinglatex = () => {
+//     const latexCode = getMathQuillValue();
+//     console.log(latexCode, "Stored LaTeX Code");
+//     alert(`Stored LaTeX Code: ${latexCode}`);
+//   };
+
+//   return (
+//     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
+//       <h1 className="text-3xl font-bold text-gray-800 mb-6">MathEditor</h1>
+
+//       {/* MathQuill Editor (EditableMathField) */}
+//       <div className="w-full max-w-lg mb-6">
+//         <EditableMathField
+//           latex={inputValue} // LaTeX code entered by the user
+//           onChange={(mathField) => setInputValue(mathField.latex())} // Update state when modified
+//           mathquillDidMount={(mathField) => {
+//             mathFieldRef.current = mathField; // Attach MathQuill instance
+//           }}
+//           style={{ fontSize: "16px" }}
+//           className="outline-none w-full text-gray-800 p-3 border border-gray-300 rounded-md"
+//         />
+//       </div>
+
+//       {/* Button to open Formula Modal */}
+//       <div>
+//         <button
+//           onClick={() => setIsModalOpen(true)}
+//           className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+//         >
+//           Select Formula
+//         </button>
+//       </div>
+
+//       {/* Modal for Formula List */}
+//       {isModalOpen && (
+//         <div className="fixed inset-0 flex justify-center items-center bg-gray-600 bg-opacity-50 z-50">
+//           <div className="bg-white p-6 rounded-lg shadow-lg w-80">
+//             <h2 className="text-lg font-medium text-gray-700 mb-4">Select Formula</h2>
+//             <ul>
+//               {formulas.map((formula) => (
+//                 <li key={formula.id} className="mb-2">
+//                   <button
+//                     onClick={() => handleInsertFormula(formula.code)}
+//                     className="text-blue-500 hover:underline"
+//                   >
+//                     {formula.description}
+//                   </button>
+//                 </li>
+//               ))}
+//             </ul>
+//             <button
+//               onClick={() => setIsModalOpen(false)}
+//               className="mt-4 bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
+//             >
+//               Close
+//             </button>
+//           </div>
+//         </div>
+//       )}
+
+//       {/* Button to get LaTeX code */}
+//       <div className="mt-4">
+//         <button
+//           onClick={storinglatex}
+//           className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
+//         >
+//           Get LaTeX Code
+//         </button>
+//       </div>
+
+//       {/* Display the stored LaTeX code as rendered math */}
+//       <div className="mt-6 w-full max-w-lg">
+//         <h2 className="text-lg font-medium text-gray-700">Stored Formula:</h2>
+//         <div className="border p-4 rounded-md bg-white mt-2">
+//           {/* MathQuill Display for the stored LaTeX code */}
+//           <EditableMathField
+//             latex={inputValue} // Display the LaTeX code stored in the state
+//             readOnly={true} // Set to true to make it read-only
+//             style={{ fontSize: "24px" }}
+//             className="w-full text-gray-800"
+//           />
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// import { useState, useRef } from "react";
+// import { addStyles, EditableMathField } from "react-mathquill";
+
+// // Add MathQuill Styles globally
+// addStyles();
+
+// const formulas = [
+//   { id: 1, code: "\\frac{x}{y}", description: "Fraction" },
+//   { id: 2, code: "\\sqrt{x}", description: "Square Root" },
+//   { id: 3, code: "x^2 + y^2 = z^2", description: "Pythagorean Theorem" },
+//   { id: 4, code: "\\int_{0}^{1} x^2 dx", description: "Integral" },
+// ];
+
+// export default function Page() {
+//   const [inputValue, setInputValue] = useState(""); // Store the formula code entered
+//   const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility for formula list
+//   const mathFieldRef = useRef(null); // Reference to MathQuill field
+
+//   // Handle inserting formula into the text field (MathQuill editor)
+//   const handleInsertFormula = (formulaCode) => {
+//     if (mathFieldRef.current) {
+//       mathFieldRef.current.latex(formulaCode); // Set LaTeX code in MathQuill editor
+//     }
+//     setInputValue(formulaCode); // Update input value for future use
+//     setIsModalOpen(false); // Close modal after inserting formula
+//   };
+//   const storinglatex=()=>{
+//     const latexCode = getMathQuillValue();
+//             console.log(latexCode,"im the latex code");
+
+//              // Get and log LaTeX code from the editor
+//             alert(`Stored LaTeX Code: ${latexCode}`);
+//   }
+//   // Handle getting the LaTeX code from the MathQuill editor
+//   const getMathQuillValue = () => {
+//     if (mathFieldRef.current) {
+//       const latexValue = mathFieldRef.current.latex(); // Get LaTeX code from MathQuill
+//       console.log("LaTeX Value: ", latexValue); // You can log or store this value as needed
+//       return latexValue;
+//     }
+//     return "";
+//   };
+// //   let data=storinglatex();
+// //   console.log(data)
+
+//   return (
+//     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
+//       <h1 className="text-3xl font-bold text-gray-800 mb-6">MathEditor</h1>
+
+//       {/* MathQuill Editor (EditableMathField) */}
+//       <div className="w-full max-w-lg mb-6">
+//         <EditableMathField
+//           latex={inputValue} // LaTeX code entered by the user
+//           onChange={(mathField) => setInputValue(mathField.latex())} // Update input value when user modifies formula
+//           mathquillDidMount={(mathField) => {
+//             mathFieldRef.current = mathField; // Attach MathQuill instance to a reference
+//           }}
+//           style={{ fontSize: "16px" }}
+//           className="outline-none w-full text-gray-800 p-3 border border-gray-300 rounded-md"
+//         />
+//       </div>
+
+//       {/* Button to open Formula Modal */}
+//       <div>
+//         <button
+//           onClick={() => setIsModalOpen(true)}
+//           className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+//         >
+//           Select Formula
+//         </button>
+//       </div>
+
+//       {/* Modal for Formula List */}
+//       {isModalOpen && (
+//         <div className="fixed inset-0 flex justify-center items-center bg-gray-600 bg-opacity-50 z-50">
+//           <div className="bg-white p-6 rounded-lg shadow-lg w-80">
+//             <h2 className="text-lg font-medium text-gray-700 mb-4">Select Formula</h2>
+//             <ul>
+//               {formulas.map((formula) => (
+//                 <li key={formula.id} className="mb-2">
+//                   <button
+//                     onClick={() => handleInsertFormula(formula.code)}
+//                     className="text-blue-500 hover:underline"
+//                   >
+//                     {formula.description}
+//                   </button>
+//                 </li>
+//               ))}
+//             </ul>
+//             <button
+//               onClick={() => setIsModalOpen(false)}
+//               className="mt-4 bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
+//             >
+//               Close
+//             </button>
+//           </div>
+//         </div>
+//       )}
+
+//       {/* Button to get LaTeX code */}
+//       <div className="mt-4">
+//         <button
+//           onClick={storinglatex}
+//           className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
+//         >
+//           Get LaTeX Code
+//         </button>
+//       </div>
+
+//       {/* Display the stored LaTeX code as rendered math */}
+//       <div className="mt-6 w-full max-w-lg">
+//         <h2 className="text-lg font-medium text-gray-700">Stored Formula:</h2>
+//         <div className="border p-4 rounded-md bg-white mt-2">
+//           {/* MathQuill Display for the stored LaTeX code */}
+//           <EditableMathField
+//             latex={inputValue} // Display the LaTeX code stored in the state
+//             readOnly={true} // Set to true to make it read-only (for displaying only)
+//             style={{ fontSize: "24px" }}
+//             className="w-full text-gray-800"
+//           />
+//         </div>
+//       </div>
+//       <div>
+//         {/* {storinglatex} */}
+//       </div>
+//     </div>
+//   );
+// }
+
+// import { useState, useRef, useEffect } from "react";
+// import { addStyles, EditableMathField } from "react-mathquill";
+
+// // Add MathQuill Styles globally
+// addStyles();
+
+// const formulas = [
+//   { id: 1, code: "\\frac{x}{y}", description: "Fraction" },
+//   { id: 2, code: "\\sqrt{x}", description: "Square Root" },
+//   { id: 3, code: "x^2 + y^2 = z^2", description: "Pythagorean Theorem" },
+//   { id: 4, code: "\\int_{0}^{1} x^2 dx", description: "Integral" },
+// ];
+
+// export default function Page() {
+//   const [inputValue, setInputValue] = useState(""); // Store the formula code entered
+//   const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility for formula list
+//   const mathFieldRef = useRef(null); // Reference to MathQuill field
+
+//   // Handle inserting formula into the text field (MathQuill editor)
+//   const handleInsertFormula = (formulaCode) => {
+//     if (mathFieldRef.current) {
+//       mathFieldRef.current.latex(formulaCode); // Set LaTeX code in MathQuill editor
+//     }
+//     setInputValue(formulaCode); // Also update input value for future use
+//     setIsModalOpen(false); // Close modal after inserting formula
+//   };
+
+//   return (
+//     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
+//       <h1 className="text-3xl font-bold text-gray-800 mb-6">MathQuill Text Field</h1>
+
+//       {/* MathQuill Editor (EditableMathField) */}
+//       <div className="w-full max-w-lg mb-6">
+//         <EditableMathField
+//           latex={inputValue} // LaTeX code entered by the user
+//           onChange={(mathField) => setInputValue(mathField.latex())} // Update input value
+//           mathquillDidMount={(mathField) => {
+//             mathFieldRef.current = mathField; // Attach MathQuill instance
+//           }}
+//           style={{ fontSize: "16px" }}
+//           className="outline-none w-full text-gray-800 p-3 border border-gray-300 rounded-md"
+//         />
+//       </div>
+
+//       {/* Button to open Formula Modal */}
+//       <div>
+//         <button
+//           onClick={() => setIsModalOpen(true)}
+//           className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+//         >
+//           Select Formula
+//         </button>
+//       </div>
+
+//       {/* Modal for Formula List */}
+//       {isModalOpen && (
+//         <div className="fixed inset-0 flex justify-center items-center bg-gray-600 bg-opacity-50 z-50">
+//           <div className="bg-white p-6 rounded-lg shadow-lg w-80">
+//             <h2 className="text-lg font-medium text-gray-700 mb-4">Select Formula</h2>
+//             <ul>
+//               {formulas.map((formula) => (
+//                 <li key={formula.id} className="mb-2">
+//                   <button
+//                     onClick={() => handleInsertFormula(formula.code)}
+//                     className="text-blue-500 hover:underline"
+//                   >
+//                     {formula.description}
+//                   </button>
+//                 </li>
+//               ))}
+//             </ul>
+//             <button
+//               onClick={() => setIsModalOpen(false)}
+//               className="mt-4 bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
+//             >
+//               Close
+//             </button>
+//           </div>
+//         </div>
+//       )}
+//       <span className="mt-2">LaTeX</span>
+//       <div className=" mt-2 p-7 w-max text-black border-black  shadow-md shadow-red-500">
+//         { }
+//       </div>
+//     </div>
+//   );
+// }
+
+// import React, { useState } from "react";
+// import { addStyles, EditableMathField } from "react-mathquill";
+
+// // Add MathQuill Styles globally
+// addStyles();
+
+// const MathQuillEditor = ({ value, onChange }) => {
+//   return (
+//     <div className="border border-gray-300 rounded-lg bg-white p-3 shadow-sm">
+//       <EditableMathField
+//         latex={value} // LaTeX code entered by the user
+//         onChange={(mathField) => onChange(mathField.latex())} // Update on input change
+//         style={{ fontSize: "16px" }}
+//         className="outline-none w-full text-gray-800"
+//       />
+//     </div>
+//   );
+// };
+
+// const Page = () => {
+//   const [inputValue, setInputValue] = useState(""); // LaTeX value in the editor
+//   const formulas = [
+//     { id: 1, code: "\\frac{x}{y}", description: "Fraction" },
+//     { id: 2, code: "\\sqrt{x}", description: "Square Root" },
+//     { id: 3, code: "x^2 + y^2 = z^2", description: "Pythagorean Theorem" },
+//     { id: 4, code: "\\int_{0}^{1} x^2 dx", description: "Integral" },
+//   ];
+
+//   // Handle inserting formula into the MathQuillEditor
+//   const handleInsertFormula = (formulaCode) => {
+//     setInputValue(formulaCode); // Insert the formula code
+//   };
+
+//   return (
+//     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
+//       <h1 className="text-3xl font-bold text-gray-800 mb-6">
+//         MathQuill Text Editor with Formula Selection
+//       </h1>
+
+//       {/* MathQuill Editor */}
+//       <div className="w-full max-w-3xl mb-6">
+//         <MathQuillEditor value={inputValue} onChange={setInputValue} />
+//       </div>
+
+//       {/* Button to open Formula Modal */}
+//       <div>
+//         <button
+//           onClick={() => setIsModalOpen(true)}
+//           className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+//         >
+//           Select Formula
+//         </button>
+//       </div>
+
+//       {/* Modal for Formula List */}
+//       {isModalOpen && (
+//         <div className="fixed inset-0 flex justify-center items-center bg-gray-600 bg-opacity-50 z-50">
+//           <div className="bg-white p-6 rounded-lg shadow-lg w-80">
+//             <h2 className="text-lg font-medium text-gray-700 mb-4">Select Formula</h2>
+//             <ul>
+//               {formulas.map((formula) => (
+//                 <li key={formula.id} className="mb-2">
+//                   <button
+//                     onClick={() => handleInsertFormula(formula.code)}
+//                     className="text-blue-500 hover:underline"
+//                   >
+//                     {formula.description}
+//                   </button>
+//                 </li>
+//               ))}
+//             </ul>
+//             <button
+//               onClick={() => setIsModalOpen(false)}
+//               className="mt-4 bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
+//             >
+//               Close
+//             </button>
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default Page;
+
+// import { useState } from "react";
+// const formulas = [
+//   { id: 1, code: "\\frac{x}{y}", description: "Fraction" },
+//   { id: 2, code: "\\sqrt{x}", description: "Square Root" },
+//   { id: 3, code: "x^2 + y^2 = z^2", description: "Pythagorean Theorem" },
+//   { id: 4, code: "\\int_{0}^{1} x^2 dx", description: "Integral" },
+// ];
+
+// export default function Page() {
+//   const [inputValue, setInputValue] = useState(""); // Store the formula code entered
+//   const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility for formula list
+
+//   // Handle inserting formula into the text field
+//   const handleInsertFormula = (formulaCode) => {
+//     setInputValue(formulaCode);
+//     setIsModalOpen(false); // Close modal after inserting formula
+//   };
+
+//   return (
+//     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
+//       <h1 className="text-3xl font-bold text-gray-800 mb-6">
+//          Text Field
+//       </h1>
+
+//       {/* Input Field */}
+//       <div className="w-full max-w-lg mb-6">
+//         <input
+//           type="text"
+//           value={inputValue}
+//           onChange={(e) => setInputValue(e.target.value)}
+//           placeholder="Enter formula (e.g., \\frac{x}{y})"
+//           className="border border-gray-300 rounded-md p-3 w-full text-lg"
+//         />
+//       </div>
+
+//       {/* Button to open Formula Modal */}
+//       <div>
+//         <button
+//           onClick={() => setIsModalOpen(true)}
+//           className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+//         >
+//           Select Formula
+//         </button>
+//       </div>
+
+//       {/* Modal for Formula List */}
+//       {isModalOpen && (
+//         <div className="fixed inset-0 flex justify-center items-center bg-gray-600 bg-opacity-50 z-50">
+//           <div className="bg-white p-6 rounded-lg shadow-lg w-80">
+//             <h2 className="text-lg font-medium text-gray-700 mb-4">Select Formula</h2>
+//             <ul>
+//               {formulas.map((formula) => (
+//                 <li key={formula.id} className="mb-2">
+//                   <button
+//                     onClick={() => handleInsertFormula(formula.code)}
+//                     className="text-blue-500 hover:underline"
+//                   >
+//                     {formula.description}
+//                   </button>
+//                 </li>
+//               ))}
+//             </ul>
+//             <button
+//               onClick={() => setIsModalOpen(false)}
+//               className="mt-4 bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
+//             >
+//               Close
+//             </button>
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   );
+// }
+
+// import React, { useState } from "react";
+// import MathQuillEditor from "@/app/(route)/mathquill/page";
+
+// const formulas = [
+//   { id: 1, code: "\\frac{x}{y}", description: "Fraction" },
+//   { id: 2, code: "\\sqrt{x}", description: "Square Root" },
+//   { id: 3, code: "x^2 + y^2 = z^2", description: "Pythagorean Theorem" },
+//   { id: 4, code: "\\int_{0}^{1} x^2 dx", description: "Integral" },
+// ];
+
+// const Page = () => {
+//   const [inputValue, setInputValue] = useState(""); // LaTeX value in the editor
+//   const [isModalOpen, setIsModalOpen] = useState(true); // Modal visibility for formulas
+
+//   // Handle inserting formula into the MathQuillEditor
+//   const handleInsertFormula = (formulaCode) => {
+//     setInputValue(formulaCode); // Insert the formula code
+//     setIsModalOpen(false); // Close modal after inserting the formula
+//   };
+
+//   return (
+//     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
+//       <h1 className="text-3xl font-bold text-gray-800 mb-6">
+//         MathQuill Text Editor with Formula Selection
+//       </h1>
+
+//       {/* MathQuill Editor (Text Field) */}
+//       <div className="w-full max-w-3xl mb-6">
+//         <MathQuillEditor value={inputValue} onChange={setInputValue} />
+//       </div>
+
+//       {/* Button to open Formula Modal */}
+//       <div>
+//         <button
+//           onClick={() => setIsModalOpen(true)}
+//           className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+//         >
+//           Select Formula
+//         </button>
+//       </div>
+
+//       {/* Modal for Formula List */}
+//       {isModalOpen && (
+//         <div className="fixed inset-0 flex justify-center items-center bg-gray-600 bg-opacity-50 z-50">
+//           <div className="bg-white p-6 rounded-lg shadow-lg w-80">
+//             <h2 className="text-lg font-medium text-gray-700 mb-4">Select Formula</h2>
+//             <ul>
+//               {formulas.map((formula) => (
+//                 <li key={formula.id} className="mb-2">
+//                   <button
+//                     onClick={() => handleInsertFormula(formula.code)}
+//                     className="text-blue-500 hover:underline"
+//                   >
+//                     {formula.description}
+//                   </button>
+//                 </li>
+//               ))}
+//             </ul>
+//             <button
+//               onClick={() => setIsModalOpen(false)}
+//               className="mt-4 bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
+//             >
+//               Close
+//             </button>
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default Page;
+// import React, { useState } from "react";
+// import MathQuillEditor from "@/app/(route)/mathquill/page";
+
+// const formulas = [
+//   { id: 1, code: "\\frac{x}{y}", description: "Fraction" },
+//   { id: 2, code: "\\sqrt{x}", description: "Square Root" },
+//   { id: 3, code: "x^2 + y^2 = z^2", description: "Pythagorean Theorem" },
+//   { id: 4, code: "\\int_{0}^{1} x^2 dx", description: "Integral" },
+// ];
+
+// const Page = () => {
+//   const [inputValue, setInputValue] = useState(""); // LaTeX value in the editor
+//   const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility for formulas
+
+//   // Handle inserting formula into the MathQuillEditor
+//   const handleInsertFormula = (formulaCode) => {
+//     setInputValue(formulaCode); // Insert the formula code
+//     setIsModalOpen(false); // Close modal after inserting the formula
+//   };
+
+//   return (
+//     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
+//       {/* Header: Will not re-render unnecessarily */}
+//       <h1 className="text-3xl font-bold text-gray-800 mb-6">
+//         MathQuill Text Editor with Formula Selection
+//       </h1>
+
+//       {/* MathQuill Editor (Text Field) */}
+//       <div className="w-full max-w-3xl mb-6">
+//         <MathQuillEditor value={inputValue} onChange={setInputValue} />
+//       </div>
+
+//       {/* Button to open Formula Modal */}
+//       <div>
+//         <button
+//           onClick={() => setIsModalOpen(true)}
+//           className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+//         >
+//           Select Formula
+//         </button>
+//       </div>
+
+//       {/* Modal for Formula List */}
+//       {isModalOpen && (
+//         <div className="fixed inset-0 flex justify-center items-center bg-gray-600 bg-opacity-50 z-50">
+//           <div className="bg-white p-6 rounded-lg shadow-lg w-80">
+//             <h2 className="text-lg font-medium text-gray-700 mb-4">Select Formula</h2>
+//             <ul>
+//               {formulas.map((formula) => (
+//                 <li key={formula.id} className="mb-2">
+//                   <button
+//                     onClick={() => handleInsertFormula(formula.code)}
+//                     className="text-blue-500 hover:underline"
+//                   >
+//                     {formula.description}
+//                   </button>
+//                 </li>
+//               ))}
+//             </ul>
+//             <button
+//               onClick={() => setIsModalOpen(false)}
+//               className="mt-4 bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
+//             >
+//               Close
+//             </button>
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default Page;
