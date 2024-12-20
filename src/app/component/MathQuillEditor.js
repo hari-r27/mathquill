@@ -1,202 +1,64 @@
-// 'use client'
-// import { useRef } from "react";
-// // import React,useRef from "react";
-// import { addStyles, EditableMathField } from "react-mathquill";
 
-// // Add MathQuill Styles globally
-// addStyles();
+'use client';
 
-// const MathQuillEditor = React.memo(({ value, onChange }) => {
-//   // const mathFieldRef = useRef(null);
+import React, { useState } from 'react';
+import { addStyles, EditableMathField } from 'react-mathquill';
 
-//   // useEffect(() => {
-//   //   if (mathFieldRef.current) {
-//   //     mathFieldRef.current.latex(value || ""); // Initialize with the provided value
-//   //   }
-//   // }, [value]);
+addStyles();
 
-//   return (
-//     <div className="border border-gray-300 rounded-lg bg-white p-3 shadow-sm">
-//       <EditableMathField
-//         latex={value} // LaTeX code entered by the user
-//         onChange={(mathField) => onChange(mathField.latex())} // Update on input change
-//         mathquillDidMount={(mathField) => {
-//           // mathFieldRef.current = mathField;
-//         }}
-//         style={{ fontSize: "16px" }}
-//         className="outline-none w-full text-gray-800"
-//       />
-//     </div>
-//   );
-// });
+const Popup = ({ onInsertEquation, onClose }) => {
+  const [mathValue, setMathValue] = useState('');
 
-export default MathQuillEditor;
+//! I adding the predefinedequation and symbols----------------------------------------------------------------
+  const predefinedEquations = [
+    { latex: '\\frac{}{}', name: 'Fraction' },  
+    { latex: '\\sqrt{}', name: 'Root' },     
+    { latex: '\\int_{}^{}', name: 'Integral' },   
+    { latex: '\\sum_{}', name: 'Summation' },
+  ];
 
+  return (
+    <div className="fixed top-0 left-1/2 transform -translate-x-1/2 bg-gray-800 p-3 rounded-lg shadow-lg w-full max-w-[300px] sm:max-w-[360px] md:max-w-[400px] lg:max-w-[450px] z-50">
+      <h2 className="text-xl font-semibold mb-3 text-white">Math Editor</h2>
 
-// import React, { useRef, useEffect } from "react";
-// import { addStyles, EditableMathField } from "react-mathquill";
+{/* //!----HERE IM USING (EditableMathField)----------------------------------------------------------------------      */}
+      
+      <div className=" border-b text-white  border-gray-100  p-2 mb-3">
+        <EditableMathField
+          latex={mathValue}
+          onChange={(mathField) => setMathValue(mathField.latex())}
+        />
+      </div>
+{/* //!--------------Here iam adding button based on the symbols and i making this iterate by using MAP mathod-------- */}
+      <div className="flex text-white flex-wrap gap-2 mb-3">
+        {predefinedEquations.map((eq, index) => (
+          <button
+            key={index}
+            // ! in this place updating mathvalue and adding expression here
+         onClick={() => setMathValue(eq.latex)}    
+            className="px-3 py-1 bg-blue-600 text-white border border-blue-700 rounded hover:bg-blue-700 transition"
+          >
+            {eq.name}
+          </button>
+        ))}
+      </div>
+{/* //!Here iam using two button submit and close ----------------------------------------------------- */}
+      <div className="flex justify-around gap-2">
+        <button
+          onClick={() => onInsertEquation(mathValue)} //!`getting props and updating the value------------
+          className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 transition"
+        >
+          Submit
+        </button>
+        <button
+          onClick={onClose} //!-when i click it going to page component and excution start--------------
+          className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  );
+};
 
-// // Add MathQuill Styles globally
-// addStyles();
-
-// const MathQuillEditor = ({ value, onChange }) => {
-//   const mathFieldRef = useRef(null);
-
-//   useEffect(() => {
-//     if (mathFieldRef.current) {
-//       mathFieldRef.current.latex(value || ""); // Initialize with the provided value
-//     }
-//   }, [value]);
-
-//   return (
-//     <div className="border border-gray-300 rounded-lg bg-white p-3 shadow-sm">
-//       <EditableMathField
-//         latex={value} // LaTeX code entered by the user
-//         onChange={(mathField) => onChange(mathField.latex())} // Update on input change
-//         mathquillDidMount={(mathField) => {
-//           mathFieldRef.current = mathField;
-//         }}
-//         style={{ fontSize: "16px" }}
-//         className="outline-none w-full text-gray-800"
-//       />
-//     </div>
-//   );
-// };
-
-// export default MathQuillEditor;
-
-// import React, { useRef, useEffect } from "react";
-// import { addStyles, EditableMathField } from "react-mathquill";
-
-// // Add MathQuill Styles globally
-// addStyles();
-
-// const MathQuillEditor = ({ value, onChange }) => {
-//   const mathFieldRef = useRef(null);
-
-//   useEffect(() => {
-//     if (mathFieldRef.current) {
-//       mathFieldRef.current.latex(value || ""); // Initialize with the provided value
-//     }
-//   }, [value]);
-
-//   return (
-//     <div className="border border-gray-300 rounded-lg bg-white p-3 shadow-sm">
-//       <EditableMathField
-//         latex={value} // LaTeX code entered by the user
-//         onChange={(mathField) => onChange(mathField.latex())} // Update on input change
-//         mathquillDidMount={(mathField) => {
-//           mathFieldRef.current = mathField;
-//         }}
-//         style={{ fontSize: "16px" }}
-//         className="outline-none w-full text-gray-800"
-//       />
-//     </div>
-//   );
-// };
-
-// export default MathQuillEditor;
-
-// import React, { useRef } from "react";
-// import { addStyles, EditableMathField } from "react-mathquill";
-
-// // Load MathQuill styles
-// addStyles();
-
-// const MathQuillEditor = ({ value, onChange }) => {
-// const mathFieldRef = useRef(null);
-
-//   // useEffect(() => {
-//   //   if (mathFieldRef.current) {
-//   //     mathFieldRef.current.latex(value || ""); // Initialize with the provided value
-//   //   }
-//   // }, [value]);
-
-//   return (
-//     <div className="border border-gray-300 rounded-lg bg-white p-3 shadow-sm">
-//       <EditableMathField
-//         latex={value} // Initial LaTeX value
-//         onChange={(mathField) => onChange(mathField.latex())} // Update on input
-//         mathquillDidMount={(mathField) => {
-//           mathFieldRef.current = mathField; // Store reference for later use
-//         }}
-//         style={{ fontSize: "16px" }}
-//         className="outline-none w-full text-gray-800"
-//       />
-//     </div>
-//   );
-// };
-
-// export default MathQuillEditor;
-
-
-
-// import React, { useRef, useEffect } from "react";
-// import { addStyles, EditableMathField } from "react-mathquill";
-
-// // Load MathQuill styles
-// addStyles();
-
-// const MathQuillEditor = ({ value, onChange }) => {
-//   const mathFieldRef = useRef(null);
-
-//   useEffect(() => {
-//     if (mathFieldRef.current) {
-//       mathFieldRef.current.latex(value || "");
-//     }
-//   }, [value]);
-
-//   const insertSymbol = (symbol) => {
-//     if (mathFieldRef.current) {
-//       mathFieldRef.current.cmd(symbol);
-//       mathFieldRef.current.focus();
-//     }
-//   };
-
-//   return (
-//     <div>
-//       {/* Toolbar for math symbols */}
-//       <div className="flex space-x-2 mb-4">
-//         <button
-//           className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-//           onClick={() => insertSymbol("\\frac{}{}")}
-//         >
-//           Fraction
-//         </button>
-//         <button
-//           className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-//           onClick={() => insertSymbol("^")}
-//         >
-//           Exponent
-//         </button>
-//         <button
-//           className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-//           onClick={() => insertSymbol("\\sqrt{}")}
-//         >
-//           Square Root
-//         </button>
-//         <button
-//           className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-//           onClick={() => insertSymbol("\\pi")}
-//         >
-//           Pi (π)
-//         </button>
-//       </div>
-
-//       {/* MathQuill Editor */}
-//       <div className="border border-gray-300 rounded-lg bg-white p-3 shadow-sm">
-//         <EditableMathField
-//           latex={value}
-//           onChange={(mathField) => onChange(mathField.latex())}
-//           mathquillDidMount={(mathField) => {
-//             mathFieldRef.current = mathField;
-//           }}
-//           style={{ fontSize: "16px" }}
-//           className="outline-none w-full text-gray-800"
-//         />
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default MathQuillEditor;
+export default Popup;
