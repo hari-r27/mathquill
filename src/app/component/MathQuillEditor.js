@@ -11,10 +11,10 @@ const Popup = ({ onInsertEquation, onClose }) => {
 
 //! I adding the predefinedequation and symbols----------------------------------------------------------------
   const predefinedEquations = [
-    { latex: '\\frac{}{}', name: 'Fraction' },  
-    { latex: '\\sqrt{}', name: 'Root' },     
-    { latex: '\\int_{}^{}', name: 'Integral' },   
-    { latex: '\\sum_{}', name: 'Summation' },
+    { latex: '\\frac{1}{2}', name: 'Fraction' },  
+    { latex: '\\sqrt{1/2}', name: 'Root' },     
+    { latex: '\\int_{1}^{2}', name: 'Integral' },   
+    { latex: '\\sum_{1}', name: 'Summation' },
   ];
 
   return (

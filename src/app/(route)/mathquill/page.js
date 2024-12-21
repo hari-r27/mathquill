@@ -13,6 +13,8 @@ const Popup = dynamic(() => import("@/app/component/MathQuillEditor"), {
 const Home = () => {
   const [content, setContent] = useState("");
   const [isMathEditorOpen, setMathEditorOpen] = useState(false);
+  const [Open, EditorOpen] = useState(false);
+  const [Final, FinalOutput] = useState([]);
   const contentRef = useRef(null);
 
   const handleInsertEquation = (equation) => {
@@ -62,7 +64,7 @@ const Home = () => {
       setMathEditorOpen(false);
     }
   };
-
+ 
   // Handle form submission
   const handleSubmit = () => {
     // Extract original LaTeX from spans
@@ -72,15 +74,31 @@ const Home = () => {
     equations.forEach((span) => {
       const latex = span.getAttribute("data-latex");
       span.innerHTML = latex; // Replace with original LaTeX
+      console.log(span.innerHTML)
     });
-
-    console.log(div.innerHTML); // This is the submitted content
+    let gettingresult=div.innerHTML
+    EditorOpen(gettingresult)
+    console.log(div.innerHTML);
+    const handleAddQuestion = () => {
+      if (!content.trim()) {
+        alert('Nothing In Input.');
+        return;
+      }
+  
+      FinalOutput((prev) => [...prev, content]);
+      setContent('');
+      if (contentRef.current) {
+        contentRef.current.innerHTML = '';
+      }
+    }; 
+    handleAddQuestion();// This is the submitted content
   };
 
   // Track changes in the contentEditable field
   const handleContentChange = () => {
     if (contentRef.current) {
       setContent(contentRef.current.innerHTML);
+      // console.log(contentRef)
 
     }
     
@@ -116,14 +134,25 @@ const Home = () => {
               cursor: "text",
             }}
           />
-
+ 
           <button
             onClick={handleSubmit}
             className="px-5 py-2 bg-teal-600 text-white rounded-md hover:bg-teal-700 transition"
           >
             Submit
           </button>
+        
         </div>
+        <div className="mt-4">
+        {Final.map((Final, index) => (
+          <div
+            key={index}
+            className="border border-gray-200 p-4 bg-white rounded mb-2 text-black"
+          >
+            <div dangerouslySetInnerHTML={{ __html: Final }} />
+          </div>
+        ))}
+      </div>
 
       {/* //! here i am using conditional opre and checking whether the box is true or not if true it execute---------- */}
         {isMathEditorOpen && (
@@ -136,9 +165,12 @@ const Home = () => {
             </div>
           </div>
         )}
+        
       </div>
     </div>
   );
 };
 
 export default Home;
+
+
